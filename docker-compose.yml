@@ -1,0 +1,17 @@
+services:
+  mongodb:
+    image: mongo:7
+    container_name: lalaba-mongo
+    restart: unless-stopped
+    command: ['--replSet', 'rs0', '--bind_ip_all']
+    ports:
+      - '27017:27017'
+    volumes:
+      - lalaba_mongo_data:/data/db
+
+# Media storage is no longer a container. Local files go to the Firebase Storage
+# Emulator, started by ../scripts/emulator.sh alongside the Auth Emulator, so
+# local dev runs the same storage provider that ships. MinIO used to live here.
+
+volumes:
+  lalaba_mongo_data:
